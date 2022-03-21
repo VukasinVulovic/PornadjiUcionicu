@@ -16,7 +16,11 @@
     width: 100vw;
     padding: 0;
     margin: 0;
+<<<<<<< HEAD
     font-size: 1.2ch;
+=======
+    font-size: 1.5rem;
+>>>>>>> 109bec01d2f510d73d8e893a58382c35546e732a
     
     border-bottom: 1px solid rgba(85, 85, 85, 0.253);
 
@@ -25,7 +29,11 @@
         flex-wrap: nowrap;
         text-align: center;
         border-right: 2px solid black;
+<<<<<<< HEAD
         padding: 0.5em;
+=======
+        padding: 0.5rem;
+>>>>>>> 109bec01d2f510d73d8e893a58382c35546e732a
     }
 
     .nav-bar {
@@ -61,19 +69,30 @@
                 position: absolute;
                 background-color: white;
                 box-shadow: 0 0 3px rgba(0, 0, 0, 0.192);
+<<<<<<< HEAD
                 padding: 1em;
+=======
+                padding: 1rem;
+>>>>>>> 109bec01d2f510d73d8e893a58382c35546e732a
                 left: 50%;
                 top: 110%;
                 transform: translate(-50%, 0);
                 flex-wrap: wrap;
                 width: 100%;
+<<<<<<< HEAD
                 z-index: 1;
+=======
+>>>>>>> 109bec01d2f510d73d8e893a58382c35546e732a
                 
                 .item {
                     flex-basis: 100%;
                     width: 100%;
                     box-sizing: border-box;
+<<<<<<< HEAD
                     margin: 0.2em 0.1em;
+=======
+                    margin: 0.2rem 0.1rem;
+>>>>>>> 109bec01d2f510d73d8e893a58382c35546e732a
                     color: rgba(0, 0, 0, 0.808);
                 }
                 
@@ -105,7 +124,11 @@
         
         .nav-item:hover::before {
             visibility: visible;
+<<<<<<< HEAD
             animation: 0.2s float-up forwards;
+=======
+            animation: 0.5s float-up forwards;
+>>>>>>> 109bec01d2f510d73d8e893a58382c35546e732a
         }
     }
 }

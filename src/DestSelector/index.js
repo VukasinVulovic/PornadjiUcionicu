@@ -8,6 +8,7 @@ function DestSelector(props) {
             <h1 className='label'> {props.title} </h1>
 
             <nav className='nav-bar'>
+<<<<<<< HEAD
                 {
                     Object.keys(props.items).map(key => {
                         return (
@@ -23,6 +24,56 @@ function DestSelector(props) {
                         ); 
                     })
                 }
+=======
+                <a className='nav-item'> 
+                    <label className="label"> Aneks G </label>
+                    
+                    <div className="items">
+                        <a className="item"> G1 </a>
+                        <a className="item"> G2 </a>
+                        <a className="item"> G3 </a>
+                        <a className="item"> G4 </a>
+                    </div>
+                </a>
+
+                <a className='nav-item'> 
+                    <label className="label"> Aneks M </label>
+                    
+                    <div className="items">
+                        <a className="item"> M1 </a>
+                        <a className="item"> M2 </a>
+                        <a className="item"> M3 </a>
+                        <a className="item"> M4 </a>
+                    </div>
+                </a>
+
+                <a className='nav-item'> 
+                    <label className="label"> Hrana i Piće </label>
+                    
+                    <div className="items">
+                        <a className="item"> Menza </a>
+                        <a className="item"> Kafić </a>
+                    </div>
+                </a>
+
+                <a className='nav-item'> 
+                    <label className="label"> Dešavanja </label>
+                    
+                    <div className="items">
+                        <a className="item"> Event Hall </a>
+                    </div>
+                </a>
+
+                <a className='nav-item'> 
+                    <label className="label"> Kancelarije </label>
+                    
+                    <div className="items">
+                        <a className="item"> Zbornica </a>
+                        <a className="item"> Direktor </a>
+                        <a className="item"> Legalna sl. </a>
+                    </div>
+                </a>
+>>>>>>> 109bec01d2f510d73d8e893a58382c35546e732a
             </nav>
         </div>
     );
