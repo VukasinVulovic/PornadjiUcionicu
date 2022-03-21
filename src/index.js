@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
-import DestSelector from './DestSelector';
+import App from './App';
 import './index.scss';
 
 ReactDOM.render(
   <React.StrictMode>
-    <DestSelector/>
+    <App/>
   </React.StrictMode>,
   document.getElementById('root')
 );

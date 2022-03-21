@@ -1,0 +1,53 @@
+@keyframes rotate {
+    from {
+        transform: rotateZ(0deg);
+    }
+
+    to {
+        transform: rotateZ(360deg);
+    }
+}
+
+.compass {
+    width: 100%;
+}
+
+.compass .compass-wrapper {
+    display: flex;
+    margin-top: 3rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .needle {
+        flex-basis: 100%;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        flex-wrap: wrap;
+        // animation: rotate 6s forwards infinite;
+
+        .destination {
+            color: #c42326;
+            flex-basis: 100%;
+            font-size: 3rem;
+        }
+
+        .icon {
+            font-size: 15rem;
+        }
+    }
+}
+
+.distance {
+    font-size: 4rem;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 2rem;
+
+    .unit {
+        color: rgba(32, 32, 32, 0.952);
+    }
+}

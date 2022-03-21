@@ -1,16 +1,31 @@
+@keyframes float-up {
+    from {
+        top: 120%;
+        opacity: 0;
+    }
+
+    to {
+        top: 100%;
+        opacity: 1;
+    }
+}
+
 .selector {
     display: flex;
     align-items: center;
     width: 100vw;
     padding: 0;
     margin: 0;
+    font-size: 1.2ch;
     
+    border-bottom: 1px solid rgba(85, 85, 85, 0.253);
+
     .label {
-        font-size: 1rem;
+        font-size: 1em;
         flex-wrap: nowrap;
         text-align: center;
-        border-right: 1px solid black;
-        padding: 0.5rem;
+        border-right: 2px solid black;
+        padding: 0.5em;
     }
 
     .nav-bar {
@@ -23,12 +38,50 @@
         width: 100%;
 
         .nav-item {
-            margin-left: 0.5rem;
-            margin-right: 0.5rem;
-            padding: 0.2rem;
+            margin-left: 0.5em;
+            margin-right: 0.5em;
+            padding: 0.2em;
             font-weight: 600;
             color: rgba(0, 0, 0, 0.808);
             position: relative;
+            justify-content: center;
+            display: flex;
+            text-align: center;
+
+            .label {
+                border: none;
+                width: 100%;
+                text-align: center;
+            }
+
+            .items {
+                display: none;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                background-color: white;
+                box-shadow: 0 0 3px rgba(0, 0, 0, 0.192);
+                padding: 1em;
+                left: 50%;
+                top: 110%;
+                transform: translate(-50%, 0);
+                flex-wrap: wrap;
+                width: 100%;
+                z-index: 1;
+                
+                .item {
+                    flex-basis: 100%;
+                    width: 100%;
+                    box-sizing: border-box;
+                    margin: 0.2em 0.1em;
+                    color: rgba(0, 0, 0, 0.808);
+                }
+                
+                .item:hover {
+                    background-color: #ffdbdcf8;
+                    color: #c42326;
+                }
+            }
         }
 
         .nav-item::before {
@@ -36,7 +89,7 @@
             left: 0;
             top: 100%;
             width: 100%;
-            height: 0.1rem;
+            height: 0.1em;
             visibility: hidden;
             position: absolute;
             background-color: #c42326;
@@ -44,10 +97,15 @@
 
         .nav-item:hover {
             color: #c42326;
+
+            .items {
+                display: flex;
+            }
         }
         
-        .nav-item:hover .nav-item::before {
+        .nav-item:hover::before {
             visibility: visible;
+            animation: 0.2s float-up forwards;
         }
     }
 }
