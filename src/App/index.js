@@ -8,51 +8,99 @@ class Vector {
         this.x = x;
         this.y = y;
         this.z = z;
-    } 
+    }
+}
+
+const places = {
+    'Aneks G': { 
+        'G1': { 
+            cords: new Vector(0, 0, 0),
+            title: 'G1' 
+        }, 
+        'G2': { 
+            cords: new Vector(0, 0, 0),
+            title: 'G2' 
+        }, 
+        'G3': { 
+            cords: new Vector(0, 0, 0),
+            title: 'G3' 
+        }, 
+        'G4': { 
+            cords: new Vector(0, 0, 0),
+            title: 'G4' 
+        }
+    },
+    'Aneks M': {
+        'M1': { 
+            cords: new Vector(0, 0, 0),
+            title: 'M1' 
+        },
+        'M2': { 
+            cords: new Vector(0, 0, 0),
+            title: 'M2' 
+        }, 
+        'M3': { 
+            cords: new Vector(0, 0, 0),
+            title: 'M3' 
+        },
+        'M4': { 
+            cords: new Vector(0, 0, 0),
+            title: 'M4' 
+        }
+    },
+    'Hrana i Piće': {
+        'Menza': { 
+            cords: new Vector(0, 0, 0),
+            title: 'Menza' 
+        }, 
+        'Kafić': { 
+            cords: new Vector(0, 0, 0),
+            title: 'Kafić' 
+        }
+    },
+    'Dešavanja': { 
+        'Event Hall': { 
+            cords: new Vector(10, 40, 0),
+            title: 'Event Hall' 
+        }
+    },
+    'Kancelarije': { 
+        'Zbornica': { 
+            cords: new Vector(0, 0, 0),
+            title: 'Zbornica' 
+        }, 
+        'Direktor': { 
+            cords: new Vector(0, 0, 0),
+            title: 'Direktor' 
+        }, 
+        'Legalna sl.': { 
+            cords: new Vector(0, 0, 0),
+            title: 'Legalna sl.' 
+        } 
+    }
 }
 
 class App extends React.Component {
     constructor() {
         super();
+        const curr = new Vector(-100, -100, 0);
+        const dest = new Vector(100, 100, 0);
+
+        const deg = Math.atan2(dest.y - curr.y, dest.x - curr.x) * (180 / Math.PI);
+
         this.state = { 
-            compassRototion: 0,
+            compassRotation: deg,
             distance: 0,
-            selectedItem: 'Event Hall'
+            selectedItem: Object.values(Object.values(places)[3])[0]
         }
+
     }
     
     render() {
         return (
             <main>
-                <DestSelector title='Index' items={{
-                'Aneks G': { 
-                    'G1': new Vector(0, 0, 0), 
-                    'G2': new Vector(0, 0, 0), 
-                    'G3': new Vector(0, 0, 0), 
-                    'G4': new Vector(0, 0, 0) 
-                },
-                'Aneks M': {
-                    'M1': new Vector(0, 0, 0), 
-                    'M2': new Vector(0, 0, 0), 
-                    'M3': new Vector(0, 0, 0), 
-                    'M4': new Vector(0, 0, 0) 
-                },
-                'Hrana i Piće': {
-                    'Menza': new Vector(0, 0, 0), 
-                    'Kafić': new Vector(0, 0, 0)
-                },
-                'Dešavanja': { 
-                    'Event Hall': new Vector(0, 0, 0)
-                },
-                'Kancelarije': { 
-                    'Zbornica': new Vector(0, 0, 0), 
-                    'Direktor': new Vector(0, 0, 0), 
-                    'Legalna sl.': new Vector(0, 0, 0) 
-                }
-                }} onSelected={item => console.log(item)}/>
-                {/* this.setState({ selectedItem: item }) */}
-
-                <Compass arrived={false} rotation={this.state.compassRototion} label={this.state.selectedItem} distance={this.state.distance}/>
+                <DestSelector title='Index' items={places} onSelected={item => this.setState({ selectedItem: item })}/>
+                <Compass arrived={false} rotation={this.state.compassRotation} label={this.state.selectedItem?.title} distance={this.state.distance}/>
             </main>
         );
     }
