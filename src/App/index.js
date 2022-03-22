@@ -1,7 +1,10 @@
 import React from 'react';
 import DestSelector from '../DestSelector';
 import Compass from '../Compass';
+import cords from './cords.json';
 import './style.scss';
+
+const EARTH_RADIUS = 6378.137;
 
 class Vector {
     constructor(x, y, z) {
@@ -11,96 +14,53 @@ class Vector {
     }
 }
 
-const places = {
-    'Aneks G': { 
-        'G1': { 
-            cords: new Vector(0, 0, 0),
-            title: 'G1' 
-        }, 
-        'G2': { 
-            cords: new Vector(0, 0, 0),
-            title: 'G2' 
-        }, 
-        'G3': { 
-            cords: new Vector(0, 0, 0),
-            title: 'G3' 
-        }, 
-        'G4': { 
-            cords: new Vector(0, 0, 0),
-            title: 'G4' 
-        }
-    },
-    'Aneks M': {
-        'M1': { 
-            cords: new Vector(0, 0, 0),
-            title: 'M1' 
-        },
-        'M2': { 
-            cords: new Vector(0, 0, 0),
-            title: 'M2' 
-        }, 
-        'M3': { 
-            cords: new Vector(0, 0, 0),
-            title: 'M3' 
-        },
-        'M4': { 
-            cords: new Vector(0, 0, 0),
-            title: 'M4' 
-        }
-    },
-    'Hrana i Piće': {
-        'Menza': { 
-            cords: new Vector(0, 0, 0),
-            title: 'Menza' 
-        }, 
-        'Kafić': { 
-            cords: new Vector(0, 0, 0),
-            title: 'Kafić' 
-        }
-    },
-    'Dešavanja': { 
-        'Event Hall': { 
-            cords: new Vector(10, 40, 0),
-            title: 'Event Hall' 
-        }
-    },
-    'Kancelarije': { 
-        'Zbornica': { 
-            cords: new Vector(0, 0, 0),
-            title: 'Zbornica' 
-        }, 
-        'Direktor': { 
-            cords: new Vector(0, 0, 0),
-            title: 'Direktor' 
-        }, 
-        'Legalna sl.': { 
-            cords: new Vector(0, 0, 0),
-            title: 'Legalna sl.' 
-        } 
-    }
-}
-
 class App extends React.Component {
     constructor() {
         super();
-        const curr = new Vector(-100, -100, 0);
-        const dest = new Vector(100, 100, 0);
-
-        const deg = Math.atan2(dest.y - curr.y, dest.x - curr.x) * (180 / Math.PI);
 
         this.state = { 
-            compassRotation: deg,
+            compassRotation: 0,
             distance: 0,
-            selectedItem: Object.values(Object.values(places)[3])[0]
+            selectedItem: Object.values(cords)[0]
         }
-
     }
     
+    posChange(pos) {
+        pos.coords.longitude = Math.floor(pos.coords.longitude);
+        pos.coords.latitude = Math.floor(pos.coords.latitude);
+
+        const x = EARTH_RADIUS * Math.cos(pos.coords.latitude) * Math.cos(pos.coords.longitude);
+        const y = EARTH_RADIUS * Math.cos(pos.coords.latitude) * Math.sin(pos.coords.longitude);
+        const z = EARTH_RADIUS * Math.sin(pos.coords.latitude);
+    
+        
+        const selected = Object.values(this.state.selectedItem)[0];
+
+        const dest = new Vector(selected[0], selected[1], selected[2]);
+        dest.x = Math.floor(dest.x);
+        dest.y = Math.floor(dest.y);
+        dest.z = Math.floor(dest.z);
+        // const rot = Math.atan2(y - dest.y, x - dest.x) * (180 / Math.PI);
+        const rot = Math.atan2(dest.z - z, dest.x - x) * (180 / Math.PI);
+
+        this.setState({ 
+            compassRotation: rot
+        });
+    }
+
+    componentDidMount() {
+        this.setState({ distance: 0 });
+
+        navigator.geolocation.watchPosition(this.posChange.bind(this), console.error, {
+            // enableHighAccuracy: true
+        });
+    }
+
     render() {
         return (
             <main>
-                <DestSelector title='Index' items={places} onSelected={item => this.setState({ selectedItem: item })}/>
-                <Compass arrived={false} rotation={this.state.compassRotation} label={this.state.selectedItem?.title} distance={this.state.distance}/>
+                <DestSelector title='Index' items={cords} onSelected={item => this.setState({ selectedItem: item })}/>
+                <Compass arrived={false} rotation={this.state.compassRotation} label={Object.keys(this.state.selectedItem)[0]} distance={this.state.distance}/>
             </main>
         );
     }

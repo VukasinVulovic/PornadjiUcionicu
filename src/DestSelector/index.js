@@ -1,6 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './style.scss';
+
+function keyValuePair(key, value) {
+    const obj = {}
+    obj[key] = value;
+    return obj;
+}
 
 function DestSelector(props) {
     return (
@@ -15,9 +20,7 @@ function DestSelector(props) {
                                 <label className='label'> {key} </label>
                             
                                 <div className='items'>
-                                    {
-                                        Object.keys(props.items[key]).map(item => <a className='item' onClick={props.onSelected ? () => props.onSelected(props.items[key][item]) : null} key={key + '-' + item}> {item} </a>)  
-                                    }
+                                    {Object.keys(props.items[key]).map(item => <a className='item' onClick={props.onSelected ? () => props.onSelected(keyValuePair(item, props.items[key][item])) : null} key={key + '-' + item}> {item} </a>)}
                                 </div>
                             </span>
                         ); 
