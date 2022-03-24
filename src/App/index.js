@@ -23,36 +23,48 @@ class App extends React.Component {
             distance: 0,
             selectedItem: Object.values(cords)[0]
         }
+
+        this.currRotation = 0;
+        this.currPos = null;
     }
     
-    posChange(pos) {
-        pos.coords.longitude = Math.floor(pos.coords.longitude);
-        pos.coords.latitude = Math.floor(pos.coords.latitude);
+    update() {
+        let d = -1;
 
-        const x = EARTH_RADIUS * Math.cos(pos.coords.latitude) * Math.cos(pos.coords.longitude);
-        const y = EARTH_RADIUS * Math.cos(pos.coords.latitude) * Math.sin(pos.coords.longitude);
-        const z = EARTH_RADIUS * Math.sin(pos.coords.latitude);
-    
-        
         const selected = Object.values(this.state.selectedItem)[0];
-
         const dest = new Vector(selected[0], selected[1], selected[2]);
-        dest.x = Math.floor(dest.x);
-        dest.y = Math.floor(dest.y);
-        dest.z = Math.floor(dest.z);
-        // const rot = Math.atan2(y - dest.y, x - dest.x) * (180 / Math.PI);
-        const rot = Math.atan2(dest.z - z, dest.x - x) * (180 / Math.PI);
 
-        this.setState({ 
-            compassRotation: rot
+        if(this.currPos != null) {
+            const currX = EARTH_RADIUS * Math.cos(this.currPos.latitude) * Math.cos(this.currPos.longitude);
+            const currY = EARTH_RADIUS * Math.cos(this.currPos.latitude) * Math.sin(this.currPos.longitude);
+            const currZ = EARTH_RADIUS * Math.sin(this.currPos.latitude);
+            const curr = new Vector(currX, currY, currZ);
+            d = (Math.pow((dest.x - curr.x), 2) + Math.pow((dest.y - curr.y), 2)) / 2; //+ Math.pow((dest.z - curr.z), 2)
+        }
+        
+
+        const angle = Math.atan(dest.x / dest.y) * (180 / Math.PI);
+        const diff = this.currRotation - angle;
+
+        this.setState({
+            compassRotation: diff,
+            distance: d
         });
     }
 
     componentDidMount() {
         this.setState({ distance: 0 });
 
-        navigator.geolocation.watchPosition(this.posChange.bind(this), console.error, {
-            // enableHighAccuracy: true
+        navigator.geolocation.watchPosition(e => {
+            this.currPos = e.coords;
+            this.update();
+        }, console.error, {
+            enableHighAccuracy: true
+        });
+
+        window.addEventListener('deviceorientation', e => {
+            this.currRotation = e.alpha;
+            this.update();
         });
     }
 

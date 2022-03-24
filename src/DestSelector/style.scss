@@ -46,6 +46,7 @@
             justify-content: center;
             display: flex;
             text-align: center;
+            user-select: none;
 
             .label {
                 border: none;
@@ -74,6 +75,7 @@
                     box-sizing: border-box;
                     margin: 0.2em 0.1em;
                     color: rgba(0, 0, 0, 0.808);
+                    user-select: none;
                 }
                 
                 .item:hover {
